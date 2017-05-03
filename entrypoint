@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Simple wrapper for executing ansible-galaxy and ansible-playbook.
+#
+# USAGE:
+#    ansible-playbook-wrapper  [other ansible-playbook arguments]
+#
+# ENVIRONMENT VARIABLES:
+#
+#    - PIP_REQUIREMENTS:        pip requirements filename;
+#                               default = "requirements.txt"
+#    - ANSIBLE_REQUIREMENTS:    ansible requirements filename;
+#                               default = "requirements.yml"
+#    - DEPLOY_KEY               deploy key (private)
+
+
+#
+# Optional deploy key
+#
+if [ -z "$DEPLOY_KEY" ]; then
+    echo "${DEPLOY_KEY}" > /root/.ssh/id_rsa
+fi
+
+#
+# install pip requirements, if any
+#
+
+if [ -z "$PIP_REQUIREMENTS" ]; then
+    PIP_REQUIREMENTS=requirements.txt
+fi
+
+if [ -f "$PIP_REQUIREMENTS" ]; then
+    pip install --upgrade -r $PIP_REQUIREMENTS
+fi
+
+
+#
+# install Galaxy roles, if any
+#
+
+if [ -z "$ANSIBLE_REQUIREMENTS" ]; then
+    ANSIBLE_REQUIREMENTS=requirements.yml
+fi
+
+if [ -f "$ANSIBLE_REQUIREMENTS" ]; then
+    apk --no-cache --update add git
+    ansible-galaxy install -r $ANSIBLE_REQUIREMENTS
+fi
+
+exec "$@"
