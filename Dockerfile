@@ -1,4 +1,4 @@
-FROM alpine:lastest
+FROM alpine:latest
 
 LABEL maintainer "pascalito@gmail.com"
 
