@@ -2,7 +2,7 @@ FROM alpine:lastest
 
 LABEL maintainer "pascalito@gmail.com"
 
-ENV ANSIBLE_VERSION=2.4.1.0
+ENV ANSIBLE_VERSION=2.4.2.0
 
 RUN echo "===> Adding Python runtime..."                                && \
     apk --update add python py-pip openssl ca-certificates              && \
