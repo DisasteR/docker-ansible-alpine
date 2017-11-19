@@ -9,7 +9,7 @@ RUN echo "===> Adding Python runtime..."                                && \
     apk --update add --virtual build-dependencies \
                 python-dev libffi-dev openssl-dev build-base            && \
     echo "===> Installing handy tools (not absolutely required)..."     && \
-    apk --update add sshpass openssh-client rsync git                   && \
+    apk --update add sshpass openssh-client rsync                       && \
     echo "===> Installing Ansible dependencies..."                      && \
     pip install --upgrade pip cffi                                      && \
     echo "===> Installing Ansible..."                                   && \
