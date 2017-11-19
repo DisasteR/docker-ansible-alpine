@@ -1,5 +1,7 @@
 # Docker-Ansible base image
 
+[![pipeline status](https://git.depad.fr/ansible/docker-ansible-alpine/badges/master/pipeline.svg)](https://git.depad.fr/ansible/docker-ansible-alpine/pipelines/)
+
 ## Usage
 
 ### Environnement variable
