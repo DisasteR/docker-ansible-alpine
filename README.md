@@ -13,20 +13,20 @@
 ### Run Playbook
 
 ```
-docker run -it --rm akit042/ansible-alpine:latest \
+docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-playbook -i inventory playbook.yml
 ```
 
 ### Generate Base Role structure
 
 ```
-docker run -it --rm akit042/ansible-alpine:latest \
+docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-galaxy init role-name
 ```
 
 ### Lint Role
 
 ```
-docker run -it --rm akit042/ansible-alpine:latest \
+docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-playbook tests/playbook.yml --syntax-check
 ```
