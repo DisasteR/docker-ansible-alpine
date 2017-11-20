@@ -1,7 +1,6 @@
 # Docker-Ansible base image
 
 [![pipeline status](https://git.depad.fr/ansible/docker-ansible-alpine/badges/master/pipeline.svg)](https://git.depad.fr/ansible/docker-ansible-alpine/pipelines/)
-=======
 [![GitHub issues](https://img.shields.io/github/issues/pad92/docker-ansible-alpine.svg)](https://github.com/pad92/docker-ansible-alpinek)
 [![Docker Automated build](https://img.shields.io/docker/automated/pad92/ansible-alpine.svg?maxAge=2592000)](https://hub.docker.com/r/pad92/ansible-alpine/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/pad92/ansible-alpine.svg)](https://hub.docker.com/r/pad92/ansible-alpine/)
