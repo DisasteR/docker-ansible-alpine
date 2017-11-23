@@ -3,18 +3,16 @@ FROM alpine:latest
 LABEL maintainer="Pascal A. <pascalito@gmail.com>"
 
 ENV ANSIBLE_VERSION=2.4.1.0
-ARG BUILD_DATE
-ARG VCS_REF
-ARG VERSION
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="docker-ansible-alpine" \
+ARG BUILD_NAME="Ansible 2.4.1.0"
+ARG BUILD_DATE="N/A"
+ARG BUILD_VCSREF="N/A"
+
+LABEL maintainer="pascalito@gmail.com" \
+      org.label-schema.name="${BUILD_NAME}" \
       org.label-schema.description="Ansible on alpine docker image" \
-      org.label-schema.url="https://github.com/pad92/docker-ansible-alpine" \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/pad92/docker-ansible-alpine" \
-      org.label-schema.vendor="kenlea" \
+      org.label-schema.build-date="${BUILD_DATE}" \
+      org.label-schema.vcs-ref="${BUILD_VCSREF}" \
       org.label-schema.version=$VERSION \
-      org.label-schema.schema-version="1.0"
 
 
 RUN echo "===> Adding Python runtime..."                                && \
