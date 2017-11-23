@@ -12,7 +12,7 @@ LABEL maintainer="pascalito@gmail.com" \
       org.label-schema.description="Ansible on alpine docker image" \
       org.label-schema.build-date="${BUILD_DATE}" \
       org.label-schema.vcs-ref="${BUILD_VCSREF}" \
-      org.label-schema.version=$VERSION \
+      org.label-schema.version=$VERSION
 
 
 RUN echo "===> Adding Python runtime..."                                && \
