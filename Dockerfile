@@ -4,7 +4,7 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>"
 
 # Metadata params
 ARG BUILD_DATE
-ARG VERSION='2.4.1.0'
+ARG VERSION
 ARG VCS_REF
 
 # Metadata
