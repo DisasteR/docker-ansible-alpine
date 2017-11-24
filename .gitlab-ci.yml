@@ -78,7 +78,7 @@ build_image.nonstd:
 build_image.tag:
   stage: build_image
   script:
-    - docker build --pull -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
+    - docker build --pull --build-arg VERSION=`cat VERSION` -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
   only:
     - tags
