@@ -20,6 +20,7 @@
 if [ -z "$DEPLOY_KEY" ]; then
     mkdir -p /root/.ssh/
     echo "${DEPLOY_KEY}" > /root/.ssh/id_rsa
+    chmod 0600 /root/.ssh/id_rsa
 fi
 
 #
