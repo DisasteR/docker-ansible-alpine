@@ -3,7 +3,7 @@
 # Build hook for docker hub
 
 if [ "${SOURCE_BRANCH}"='master' ]; then
-  VERSION=`head -1 VERSION`
+  VERSION=`tail -1 VERSION`
 else
   VERSION=${SOURCE_BRANCH}
 fi
