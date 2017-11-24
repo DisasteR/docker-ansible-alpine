@@ -4,9 +4,7 @@ services:
   - docker:dind
 
 stages:
-  - test
   - build_image
-  - release
   - tag_latest
 
 before_script:
@@ -20,7 +18,7 @@ build_image.default:
   stage: build_image
   script:
     - docker build --pull
-      --build-arg VERSION=`cat VERSION`
+      --build-arg VERSION=`tail -1 VERSION`
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
@@ -40,7 +38,7 @@ build_image.feature:
   stage: build_image
   script:
     - docker build --pull
-      --build-arg VERSION=`cat VERSION`
+      --build-arg VERSION=`tail -1 VERSION`
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
@@ -59,7 +57,7 @@ build_image.nonstd:
   stage: build_image
   script:
     - docker build --pull
-      --build-arg VERSION=`cat VERSION`
+      --build-arg VERSION=`tail -1 VERSION`
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
@@ -78,7 +76,12 @@ build_image.nonstd:
 build_image.tag:
   stage: build_image
   script:
-    - docker build --pull --build-arg VERSION=`cat VERSION` -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
+    - docker build --pull
+      --build-arg VERSION="${CI_COMMIT_TAG}"
+      --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+      --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+      --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
+      -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
   only:
     - tags

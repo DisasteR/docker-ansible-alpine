@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.6
 
 LABEL maintainer="Pascal A. <pascalito@gmail.com>"
 
