@@ -10,6 +10,6 @@ fi
 
 docker build \
     --build-arg VERSION=${VERSION} \
-    --build-arg VCS_REF=${GIT_SHA1} \
+    --build-arg VCS_REF=${SOURCE_COMMIT} \
     --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ` \
     -t $IMAGE_NAME .
