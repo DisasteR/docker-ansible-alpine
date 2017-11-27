@@ -19,10 +19,8 @@
 #
 if [ ! -z "$DEPLOY_KEY" ]; then
     mkdir -p /root/.ssh/
-    if [ ! -f "/root/.ssh/id_rsa" ]; then
-        echo "${DEPLOY_KEY}" > /root/.ssh/id_rsa
-        chmod 0600 /root/.ssh/id_rsa
-    fi
+    echo "${DEPLOY_KEY}" > /root/.ssh/id_rsa
+    chmod 0600 /root/.ssh/id_rsa
 fi
 
 # Loadkey into ssh-agent if key exist
