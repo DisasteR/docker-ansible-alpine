@@ -23,6 +23,10 @@ if [ -z "$DEPLOY_KEY" ]; then
         echo "${DEPLOY_KEY}" > /root/.ssh/id_rsa
         chmod 0600 /root/.ssh/id_rsa
     fi
+fi
+
+# Loadkey into ssh-agent if key exist
+if [ -f "/root/.ssh/id_rsa" ]; then
     eval $(ssh-agent)
     ssh-add /root/.ssh/id_rsa
 fi
