@@ -1,5 +1,11 @@
 # Docker-Ansible base image
 
+[![pipeline status](https://git.depad.fr/ansible/docker-ansible-alpine/badges/master/pipeline.svg)](https://git.depad.fr/ansible/docker-ansible-alpine/pipelines/)
+[![Layers](https://images.microbadger.com/badges/image/pad92/ansible-alpine.svg)](https://microbadger.com/images/pad92/ansible-alpine)
+[![GitHub issues](https://img.shields.io/github/issues/pad92/docker-ansible-alpine.svg)](https://github.com/pad92/docker-ansible-alpine)
+[![Docker Automated build](https://img.shields.io/docker/automated/pad92/ansible-alpine.svg?maxAge=2592000)](https://hub.docker.com/r/pad92/ansible-alpine/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/pad92/ansible-alpine.svg)](https://hub.docker.com/r/pad92/ansible-alpine/)
+
 ## Usage
 
 ### Environnement variable
@@ -13,20 +19,20 @@
 ### Run Playbook
 
 ```
-docker run -it --rm akit042/ansible-alpine:latest \
+docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-playbook -i inventory playbook.yml
 ```
 
 ### Generate Base Role structure
 
 ```
-docker run -it --rm akit042/ansible-alpine:latest \
+docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-galaxy init role-name
 ```
 
 ### Lint Role
 
 ```
-docker run -it --rm akit042/ansible-alpine:latest \
+docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-playbook tests/playbook.yml --syntax-check
 ```
