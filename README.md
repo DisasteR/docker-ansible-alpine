@@ -36,3 +36,13 @@ docker run -it --rm pad92/ansible-alpine:latest \
 docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-playbook tests/playbook.yml --syntax-check
 ```
++ ### Run with forwarding ssh agent
++ 
++ ```
++ docker run -it -rm \
++   -v $(readlink -f $SSH_AUTH_SOCK):/ssh-agent \
++   -e SSH_AUTH_SOCK=/ssh-agent \
++   -e -v ${PWD}:/ansible \
++   pad92/ansible-alpine:latest sh
++ ```
+
