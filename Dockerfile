@@ -6,7 +6,7 @@ ARG VERSION
 ARG VCS_REF
 
 # Metadata
-LABEL maintainer="Pascal A. <pascalito@gmail.com>"
+LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.url="https://github.com/pad92/docker-ansible-alpine/blob/master/README.md" \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.version=$VERSION \
