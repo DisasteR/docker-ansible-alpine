@@ -15,15 +15,19 @@
 ### Run Playbook
 
 ```
-docker run -it --rm pad92/ansible-alpine:latest \
-  -v ${PWD}:/ansible ansible-playbook -i inventory playbook.yml
+docker run -it --rm \
+  -v ${PWD}:/ansible \
+  pad92/ansible-alpine:latest \
+  ansible-playbook -i inventory playbook.yml
 ```
 
 ### Generate Base Role structure
 
 ```
-docker run -it --rm pad92/ansible-alpine:latest \
-  -v ${PWD}:/ansible ansible-galaxy init role-name
+docker run -it --rm \
+  -v ${PWD}:/ansible \
+  pad92/ansible-alpine:latest \
+  ansible-galaxy init role-name
 ```
 
 ### Lint Role
@@ -35,10 +39,11 @@ docker run -it --rm pad92/ansible-alpine:latest \
 ### Run with forwarding ssh agent
 
 ```
-docker run -it -rm \
+docker run -it --rm \
   -v $(readlink -f $SSH_AUTH_SOCK):/ssh-agent \
+  -v ${PWD}:/ansible \
   -e SSH_AUTH_SOCK=/ssh-agent \
-  -e -v ${PWD}:/ansible \
-  pad92/ansible-alpine:latest sh
+  pad92/ansible-alpine:latest \
+  sh
 ```
 
