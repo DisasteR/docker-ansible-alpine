@@ -21,8 +21,8 @@ build_image.default:
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
-      -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}" .
-    - docker push "${CI_REGISTRY_IMAGE}:ansible-${CI_COMMIT_REF_NAME}"
+      -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
+    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
   only:
     - master
   except:
@@ -38,8 +38,8 @@ build_image.2320:
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
-      -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}" .
-    - docker push "${CI_REGISTRY_IMAGE}:ansible-2.3.2.0"
+      -t "${CI_REGISTRY_IMAGE}:2.3.2.0" .
+    - docker push "${CI_REGISTRY_IMAGE}:2.3.2.0"
   only:
     - master
   except:
@@ -55,8 +55,8 @@ build_image.196:
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
-      -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}" .
-    - docker push "${CI_REGISTRY_IMAGE}:ansible-1.9.6"
+      -t "${CI_REGISTRY_IMAGE}:1.9.6" .
+    - docker push "${CI_REGISTRY_IMAGE}:1.9.6"
   only:
     - master
   except:
