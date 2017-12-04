@@ -18,15 +18,47 @@ build_image.default:
   stage: build_image
   script:
     - docker build --pull
-      --build-arg VERSION=`tail -1 VERSION`
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
       -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}" .
-    - docker push "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}"
+    - docker push "${CI_REGISTRY_IMAGE}:ansible-${CI_COMMIT_REF_NAME}"
   only:
     - master
-    - dev
+  except:
+    - tags
+  tags:
+    - docker
+    
+build_image.2320:
+  stage: build_image
+  script:
+    - docker build --pull
+      --build-arg VERSION='2.3.2.0'
+      --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+      --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+      --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
+      -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}" .
+    - docker push "${CI_REGISTRY_IMAGE}:ansible-2.3.2.0"
+  only:
+    - master
+  except:
+    - tags
+  tags:
+    - docker
+    
+build_image.196:
+  stage: build_image
+  script:
+    - docker build --pull
+      --build-arg VERSION='1.9.6'
+      --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+      --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+      --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
+      -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME}" .
+    - docker push "${CI_REGISTRY_IMAGE}:ansible-1.9.6"
+  only:
+    - master
   except:
     - tags
   tags:
@@ -68,22 +100,6 @@ build_image.nonstd:
   except:
     - master
     - dev
-    - tags
-  tags:
-    - docker
-
-# TAGS
-build_image.tag:
-  stage: build_image
-  script:
-    - docker build --pull
-      --build-arg VERSION="${CI_COMMIT_TAG}"
-      --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
-      --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
-      --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
-      -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
-    - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
-  only:
     - tags
   tags:
     - docker
