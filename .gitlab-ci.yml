@@ -87,7 +87,6 @@ build_image.feature:
   stage: build_image
   script:
     - docker build --pull
-      --build-arg VERSION=`tail -1 VERSION`
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
