@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RELEASES='2.3.2.0 1.9.6'
+RELEASES='2.4.1.0 2.3.2.0 1.9.6'
 
 for RELEASE in $RELEASES; do
 	docker build --build-arg VERSION=${RELEASE} \
