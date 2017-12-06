@@ -29,6 +29,23 @@ build_image.default:
     - tags
   tags:
     - docker
+
+build_image.2410:
+  stage: build_image
+  script:
+    - docker build --pull
+      --build-arg VERSION='2.4.1.0'
+      --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+      --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+      --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
+      -t "${CI_REGISTRY_IMAGE}:2.4.1.0" .
+    - docker push "${CI_REGISTRY_IMAGE}:2.4.1.0"
+  only:
+    - master
+  except:
+    - tags
+  tags:
+    - docker
     
 build_image.2320:
   stage: build_image
