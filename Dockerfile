@@ -18,8 +18,9 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
 
 RUN echo "===> Adding Python runtime..."                                && \
     apk --update add python py-pip openssl ca-certificates              && \
-    apk --update add --virtual build-dependencies \
-                python-dev libffi-dev openssl-dev build-base            && \
+    apk --update add --virtual build-dependencies                          \
+                python-dev libffi-dev openssl-dev build-base               \
+                postgresql-dev gcc python3-dev musl-dev                 && \
     echo "===> Installing handy tools (not absolutely required)..."     && \
     apk --update add sshpass openssh-client rsync
 RUN echo "===> Installing Ansible dependencies..."                      && \
