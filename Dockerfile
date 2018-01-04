@@ -18,9 +18,8 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
 
 RUN echo "===> Adding Python runtime..."                                && \
     apk --update add python py-pip openssl ca-certificates              && \
-    apk --update add --virtual build-dependencies                          \
-                python-dev libffi-dev build-base                           \
-                postgresql-dev                                          && \
+    apk --update add --virtual .build-deps                                 \
+                python-dev libffi-dev openssl-dev build-base            && \
     echo "===> Installing handy tools (not absolutely required)..."     && \
     apk --update add sshpass openssh-client rsync
 RUN echo "===> Installing Ansible dependencies..."                      && \
@@ -28,6 +27,7 @@ RUN echo "===> Installing Ansible dependencies..."                      && \
     echo "===> Installing Ansible..."                                   && \
     pip install ansible==${VERSION}
 RUN echo "===> Removing package list..."                                && \
+    apk del .build-deps                                                 && \
     rm -rf /var/cache/apk/*                                             && \
     echo "===> Adding hosts for convenience..."                         && \
     mkdir -p /etc/ansible                                               && \
