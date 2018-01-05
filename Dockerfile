@@ -21,12 +21,12 @@ RUN echo "===> Adding Python runtime..."                                && \
     apk --update add --virtual .build-deps                                 \
                 python-dev libffi-dev openssl-dev build-base            && \
     echo "===> Installing handy tools (not absolutely required)..."     && \
-    apk --update add sshpass openssh-client rsync
-RUN echo "===> Installing Ansible dependencies..."                      && \
+    apk --update add sshpass openssh-client rsync                       && \
+    echo "===> Installing Ansible dependencies..."                      && \
     pip install --upgrade pip cffi                                      && \
     echo "===> Installing Ansible..."                                   && \
-    pip install ansible==${VERSION}
-RUN echo "===> Removing package list..."                                && \
+    pip install ansible==${VERSION}                                     && \
+    echo "===> Removing package list..."                                && \
     apk del .build-deps                                                 && \
     rm -rf /var/cache/apk/*                                             && \
     echo "===> Adding hosts for convenience..."                         && \
