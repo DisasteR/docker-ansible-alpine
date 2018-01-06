@@ -16,24 +16,39 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.description="Ansible on alpine docker image" \
       org.label-schema.schema-version="1.0"
 
-RUN echo "===> Adding Python runtime..."                                && \
-    apk --update add python py-pip openssl ca-certificates              && \
-    apk --update add --virtual .build-deps                                 \
-                python-dev libffi-dev openssl-dev build-base            && \
-    echo "===> Installing handy tools (not absolutely required)..."     && \
-    apk --update add sshpass openssh-client rsync                       && \
-    echo "===> Installing Ansible dependencies..."                      && \
-    pip install --upgrade pip cffi                                      && \
-    echo "===> Installing Ansible..."                                   && \
-    pip install ansible==${VERSION}                                     && \
-    echo "===> Removing package list..."                                && \
-    apk del .build-deps                                                 && \
-    rm -rf /var/cache/apk/*                                             && \
-    echo "===> Adding hosts for convenience..."                         && \
-    mkdir -p /etc/ansible                                               && \
-    echo 'localhost' > /etc/ansible/hosts                               && \
-    echo "===> Disabling SSH HostKey Checking..."                       && \
-    echo -e """\
+RUN    apk --update add \
+           python \
+           py-pip \
+           openssl \
+		   ca-certificates \
+		   git \
+		   less \
+		   openssl \
+		   openssh-client \
+		   p7zip \
+		   py-lxml \
+		   rsync \
+		   sshpass \
+		   sudo \
+		   subversion \
+		   zip \
+    && apk --update add --virtual \
+           .build-deps \
+           python-dev \
+           libffi-dev \
+           openssl-dev \
+           build-base \
+    && pip install --upgrade \
+           pip \
+           cffi \
+    && pip install \
+           ansible==${VERSION} \
+    && apk del .build-deps \
+    && rm -rf /var/cache/apk/*
+
+RUN mkdir -p /etc/ansible \
+    && echo 'localhost' > /etc/ansible/hosts \
+    && echo -e """\
 \n\
 Host *\n\
     StrictHostKeyChecking no\n\
