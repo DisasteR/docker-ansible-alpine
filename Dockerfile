@@ -16,39 +16,32 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.description="Ansible on alpine docker image" \
       org.label-schema.schema-version="1.0"
 
-RUN    apk --update add \
-           python \
-           py-pip \
-           openssl \
-		   ca-certificates \
-		   git \
-		   less \
-		   openssl \
-		   openssh-client \
-		   p7zip \
-		   py-lxml \
-		   rsync \
-		   sshpass \
-		   sudo \
-		   subversion \
-		   zip \
-    && apk --update add --virtual \
-           .build-deps \
-           python-dev \
-           libffi-dev \
-           openssl-dev \
-           build-base \
-    && pip install --upgrade \
-           pip \
-           cffi \
-    && pip install \
-           ansible==${VERSION} \
-    && apk del .build-deps \
-    && rm -rf /var/cache/apk/*
+RUN apk --update add \
+        python \
+        py-pip \
+        openssl \
+        ca-certificates \
+        sshpass \
+        openssh-client \
+        rsync \
+ && apk --update add --virtual \
+        .build-deps \
+        python-dev \
+        libffi-dev \
+        openssl-dev \
+        build-base \
+ && pip install --upgrade \
+        pip \
+        cffi \
+ && pip install \
+        ansible==${VERSION} \
+ && apk del \
+        .build-deps \
+ && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /etc/ansible \
-    && echo 'localhost' > /etc/ansible/hosts \
-    && echo -e """\
+ && echo 'localhost' > /etc/ansible/hosts \
+ && echo -e """\
 \n\
 Host *\n\
     StrictHostKeyChecking no\n\
