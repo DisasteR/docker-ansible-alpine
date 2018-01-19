@@ -18,6 +18,7 @@ if [ -f "ansible.log" ]; then
     DATE_LOG=$(date -d "$(head -1 ansible.log  | cut -d, -f1 )" +%Y%m%d-%H%M%S) 2>/dev/null
     if [ -n "$DATE_LOG" ]; then
         mv ansible.log ansible-${DATE_LOG}.log
+        gzip ansible-${DATE_LOG}.log &
     fi
 fi
 
