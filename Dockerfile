@@ -2,7 +2,7 @@ FROM alpine:3.6
 
 # Metadata params
 ARG BUILD_DATE
-ARG VERSION=2.4.2.0
+ARG VERSION=2.4.3.0
 ARG VCS_REF
 
 # Metadata
@@ -17,13 +17,14 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.schema-version="1.0"
 
 RUN apk --update add \
-        python \
-        py-pip \
-        openssl \
         ca-certificates \
-        sshpass \
+        git \
         openssh-client \
+        openssl \
+        py-pip \
+        python \
         rsync \
+        sshpass \
  && apk --update add --virtual \
         .build-deps \
         python-dev \

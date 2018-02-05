@@ -51,8 +51,7 @@ if [ -z "$ANSIBLE_REQUIREMENTS" ]; then
 fi
 
 if [ -f "$ANSIBLE_REQUIREMENTS" ]; then
-    apk --no-cache --update add git
-    ansible-galaxy install -r $ANSIBLE_REQUIREMENTS
+    ansible-galaxy install $ANSIBLE_GALAXY_PARAM -r $ANSIBLE_REQUIREMENTS
 fi
 
 exec "$@"
