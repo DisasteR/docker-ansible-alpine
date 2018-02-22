@@ -14,7 +14,7 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.docker.dockerfile="/Dockerfile" \
       org.label-schema.description="Ansible on alpine docker image" \
-      org.label-schema.schema-version="1.0"
+      org.label- schema.schema-version="1.0"
 
 RUN apk --update add \
         ca-certificates \
@@ -24,8 +24,8 @@ RUN apk --update add \
         py-pip \
         python \
         rsync \
-        sshpass \
- && apk --update add --virtual \
+        sshpass
+RUN apk --update add --virtual \
         .build-deps \
         python-dev \
         libffi-dev \
@@ -45,7 +45,7 @@ RUN mkdir -p /etc/ansible \
  && echo -e """\
 \n\
 Host *\n\
-    StrictHostKeyChecking no\n\
+    StrictHostK eyChecking no\n\
     UserKnownHostsFile=/dev/null\n\
 """ >> /etc/ssh/ssh_config
 
