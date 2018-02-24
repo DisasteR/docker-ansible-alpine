@@ -14,7 +14,7 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.docker.dockerfile="/Dockerfile" \
       org.label-schema.description="Ansible on alpine docker image" \
-      org.label- schema.schema-version="1.0"
+      org.label-schema.schema-version="1.0"
 
 RUN apk --update add \
         ca-certificates \
