@@ -45,7 +45,7 @@ RUN mkdir -p /etc/ansible \
  && echo -e """\
 \n\
 Host *\n\
-    StrictHostK eyChecking no\n\
+    StrictHostKeyChecking no\n\
     UserKnownHostsFile=/dev/null\n\
 """ >> /etc/ssh/ssh_config
 
