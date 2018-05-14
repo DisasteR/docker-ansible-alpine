@@ -5,7 +5,7 @@ services:
 
 stages:
   - build_image
-  - tag_latest
+  - tag_image
 
 before_script:
   - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
@@ -18,6 +18,7 @@ build_image.default:
   stage: build_image
   script:
     - docker build --pull
+      --build-arg VERSION="${ANSIBLE_VERSION}"
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
@@ -36,7 +37,7 @@ build_image.feature:
   stage: build_image
   script:
     - docker build --pull
-      --build-arg VERSION=`tail -1 VERSION`
+      --build-arg VERSION="${ANSIBLE_VERSION}"
       --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
       --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
@@ -49,37 +50,17 @@ build_image.feature:
   tags:
     - docker
 
-# Non Standard branches (^[a-zA-Z]+.*)
-# Strip branch name to 128 char max
-build_image.nonstd:
-  stage: build_image
-  script:
-    - docker build --pull
-      --build-arg VERSION=`tail -1 VERSION`
-      --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
-      --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
-      --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
-      -t "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME:0:128}" .
-    - docker push "${CI_REGISTRY_IMAGE}:branch-${CI_COMMIT_REF_NAME:0:128}"
-  only:
-    - /^[a-zA-Z]+.*$/
-  except:
-    - master
-    - dev
-    - tags
-  tags:
-    - docker
-
 ###
 ## TAG IMAGE
 #
 # Tag latest on master branch
 tag_image.latest:
-  stage: tag_latest
+  stage: tag_image
   script:
     - docker pull "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
     - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${CI_REGISTRY_IMAGE}:latest"
     - docker push "${CI_REGISTRY_IMAGE}:latest"
+    - docker push "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
   only:
     - master
   except:
