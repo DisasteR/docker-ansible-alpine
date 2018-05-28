@@ -8,7 +8,8 @@ stages:
   - tag_image
 
 before_script:
-  - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}"       "${CI_REGISTRY}"
+  - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+  - docker login -u "${DOCKER_USER}" -e "${DOCKER_MAIL}" -p "${DOCKER_PASSWORD}"
 
 ###
 ## BUILD IMAGE
@@ -24,6 +25,8 @@ build_image.default:
       --build-arg VCS_REF="${CI_COMMIT_SHA:0:8}"
       -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" .
     - docker push "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${DOCKER_IMAGE}:${CI_COMMIT_REF_NAME}"
+    - docker push "${DOCKER_IMAGE}:${CI_COMMIT_REF_NAME}" "${DOCKER_IMAGE}:${CI_COMMIT_REF_NAME}"
   only:
     - master
   except:
@@ -58,10 +61,16 @@ tag_image.latest:
   stage: tag_image
   script:
     - docker pull "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+
     - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
     - docker push "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
     - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${CI_REGISTRY_IMAGE}:latest"
     - docker push "${CI_REGISTRY_IMAGE}:latest"
+    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${DOCKER_IMAGE}:${ANSIBLE_VERSION}"
+    - docker push "${DOCKER_IMAGE}:${ANSIBLE_VERSION}" "${DOCKER_IMAGE}:${ANSIBLE_VERSION}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${DOCKER_IMAGE}:latest"
+    - docker push "${DOCKER_IMAGE}:latest" "${DOCKER_IMAGE}:latest"
+
   only:
     - master
   except:
