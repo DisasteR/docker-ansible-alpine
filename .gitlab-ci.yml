@@ -8,7 +8,8 @@ stages:
   - tag_image
 
 before_script:
-  - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+  - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}"       "${CI_REGISTRY}"
+  - docker login -u "${DOCKERHUB_USER}"   -p "${DOCKERHUB_PASSWORD}" "index.docker.io"
 
 ###
 ## BUILD IMAGE
@@ -62,6 +63,10 @@ tag_image.latest:
     - docker push "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
     - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "${CI_REGISTRY_IMAGE}:latest"
     - docker push "${CI_REGISTRY_IMAGE}:latest"
+    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "index.docker.io/pad92/ansible-alpine:${ANSIBLE_VERSION}"
+    - docker push "index.docker.io/pad92/ansible-alpine:${ANSIBLE_VERSION}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" "index.docker.io/pad92/ansible-alpine:latest"
+    - docker push "index.docker.io/pad92/ansible-alpine:latest"
   only:
     - master
   except:
