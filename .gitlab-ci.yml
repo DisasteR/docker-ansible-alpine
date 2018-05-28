@@ -9,7 +9,7 @@ stages:
 
 before_script:
   - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}"       "${CI_REGISTRY}"
-  - docker login -u "${DOCKERHUB_USER}"   -p "${DOCKERHUB_PASSWORD}" "index.docker.io"
+  - docker login -u "${DOCKERHUB_LOGIN}"   -p "${DOCKERHUB_PASSWORD}" "index.docker.io"
 
 ###
 ## BUILD IMAGE
