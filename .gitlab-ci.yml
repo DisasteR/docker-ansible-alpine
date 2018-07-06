@@ -73,7 +73,8 @@ build_image.dockerhub:
     CI_REGISTRY_PASSWORD=${DH_PASSWORD}
     CI_REGISTRY=index.docker.io
     CI_REGISTRY_IMAGE=index.docker.io/pad92/ansible-alpine
-  depen
+  dependencies:
+    - tag_image.latest
   script:
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
     - docker push "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
