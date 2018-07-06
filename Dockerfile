@@ -1,8 +1,8 @@
-FROM alpine:3.7
+FROM alpine:latest
 
 # Metadata params
 ARG BUILD_DATE
-ARG VERSION
+ARG VERSION=2.6.0
 ARG VCS_REF
 
 # Metadata
