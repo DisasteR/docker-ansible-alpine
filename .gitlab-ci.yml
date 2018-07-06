@@ -69,10 +69,10 @@ tag_image.latest:
 build_image.dockerhub:
   stage: push_dockerhub
   variables:
-    CI_REGISTRY_USER=${DH_USER}
-    CI_REGISTRY_PASSWORD=${DH_PASSWORD}
-    CI_REGISTRY=index.docker.io
-    CI_REGISTRY_IMAGE=index.docker.io/pad92/ansible-alpine
+    CI_REGISTRY_USER: "${DH_USER}"
+    CI_REGISTRY_PASSWORD: "${DH_PASSWORD}"
+    CI_REGISTRY: "index.docker.io"
+    CI_REGISTRY_IMAGE: "index.docker.io/pad92/ansible-alpine"
   dependencies:
     - tag_image.latest
   script:
