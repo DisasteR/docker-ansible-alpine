@@ -9,33 +9,33 @@ ARG VCS_REF
 # Metadata
 LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.url="https://github.com/pad92/docker-ansible-alpine/blob/master/README.md" \
-      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.build-date=${BUILD_DATE} \
       org.label-schema.version=${ANSIBLE_VERSION} \
       org.label-schema.vcs-url="https://github.com/pad92/docker-ansible-alpine.git" \
-      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-ref=${VCS_REF} \
       org.label-schema.docker.dockerfile="/Dockerfile" \
       org.label-schema.description="Ansible on alpine docker image" \
       org.label-schema.schema-version="1.0"
 
-RUN apk --update add \
+RUN apk --update --no-cache add \
         ca-certificates \
         git \
         openssh-client \
         openssl \
-        py-pip \
-        python \
+        python3\
         rsync \
         sshpass
+
 RUN apk --update add --virtual \
         .build-deps \
-        python-dev \
+        python3-dev \
         libffi-dev \
         openssl-dev \
         build-base \
- && pip install --upgrade \
+ && pip3 install --upgrade \
         pip \
         cffi \
- && pip install \
+ && pip3 install \
         ansible==${ANSIBLE_VERSION} \
         ansible-lint==${ANSIBLE_LINT_VERSION} \
  && apk del \
