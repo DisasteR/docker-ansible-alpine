@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 docker tag ${IMAGE_NAME} ${DOCKER_REPO}:${ANSIBLE_VERSION}
 docker push $DOCKER_REPO:${ANSIBLE_VERSION}
