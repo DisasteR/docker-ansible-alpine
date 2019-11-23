@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.10.3
 
 # Metadata params
 ARG BUILD_DATE
