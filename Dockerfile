@@ -1,9 +1,10 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 # Metadata params
 ARG BUILD_DATE
 ARG ANSIBLE_VERSION
 ARG ANSIBLE_LINT_VERSION
+ARG MITOGEN_VERSION
 ARG VCS_REF
 
 # Metadata
@@ -32,6 +33,8 @@ RUN apk --update add --virtual \
         libffi-dev \
         openssl-dev \
         build-base \
+ && curl -s -L https://networkgenomics.com/try/mitogen-${MITOGEN_VERSION}.tar.gz | tar xvzf - -C /opt/ \
+ && mv /opt/mitogen-* /opt/mitogen \
  && pip3 install --upgrade \
         pip \
         cffi \
