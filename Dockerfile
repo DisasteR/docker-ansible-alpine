@@ -30,11 +30,12 @@ RUN apk --update --no-cache add \
 RUN apk --update add --virtual \
         .build-deps \
         python3-dev \
+        py3-pip \
         libffi-dev \
         openssl-dev \
         build-base \
         curl \
- && curl -s -L https://networkgenomics.com/try/mitogen-${MITOGEN_VERSION}.tar.gz | tar xvzf - -C /opt/ \
+ && curl -s -L https://networkgenomics.com/try/mitogen-${MITOGEN_VERSION}.tar.gz | tar xzf - -C /opt/ \
  && mv /opt/mitogen-* /opt/mitogen \
  && pip3 install --upgrade \
         pip \
