@@ -12,6 +12,15 @@
 | ANSIBLE_REQUIREMENTS | requirements.yml | install ansible galaxy roles requirements   |
 | DEPLOY_KEY           |                  | pass an SSH private key to use in container |
 
+### Mitogen
+
+To enable mitogen, add this configuration into defaults in defaults.cfg file
+```
+action_plugins = ~/.ansible/plugins/action:/usr/share/ansible/plugins/action
+strategy_plugins = /opt/mitogen/ansible_mitogen/plugins/strategy
+strategy = mitogen_linear
+```
+
 ### Run Playbook
 
 ```
@@ -46,4 +55,3 @@ docker run -it --rm \
   pad92/ansible-alpine:latest \
   sh
 ```
-
