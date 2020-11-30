@@ -24,13 +24,13 @@ RUN apk --update --no-cache add \
         openssh-client \
         openssl \
         python3\
+        py3-pip \
         rsync \
         sshpass
 
 RUN apk --update add --virtual \
         .build-deps \
         python3-dev \
-        py3-pip \
         libffi-dev \
         openssl-dev \
         build-base \
