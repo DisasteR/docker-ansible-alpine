@@ -25,6 +25,7 @@ RUN apk --update --no-cache add \
         openssl \
         python3\
         py3-pip \
+        py3-cryptography \
         rsync \
         sshpass
 
