@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.14
 
 # Metadata params
 ARG BUILD_DATE
@@ -36,8 +36,8 @@ RUN apk --update add --virtual \
         openssl-dev \
         build-base \
         curl \
- && curl -s -L https://networkgenomics.com/try/mitogen-${MITOGEN_VERSION}.tar.gz | tar xzf - -C /opt/ \
- && mv /opt/mitogen-* /opt/mitogen \
+ && if [ ! -z "${MITOGEN_VERSION+x}" ]; then curl -s -L https://github.com/mitogen-hq/mitogen/archive/refs/tags/v${MITOGEN_VERSION}.tar.gz | tar xzf - -C /opt/ \
+ && mv /opt/mitogen-* /opt/mitogen; fi \
  && pip3 install --upgrade \
         pip \
         cffi \
