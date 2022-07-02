@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 # Metadata params
 ARG BUILD_DATE
@@ -12,6 +12,9 @@ LABEL maintainer="Pascal A. <pascalito@gmail.com>" \
       org.label-schema.url="https://github.com/pad92/docker-ansible-alpine/blob/master/README.md" \
       org.label-schema.build-date=${BUILD_DATE} \
       org.label-schema.version=${ANSIBLE_VERSION} \
+      org.label-schema.version_ansible=${ANSIBLE_VERSION} \
+      org.label-schema.version_ansible_lint=${ANSIBLE_LINT_VERSION} \
+      org.label-schema.version_mitogen=${MITOGEN_VERSION} \
       org.label-schema.vcs-url="https://github.com/pad92/docker-ansible-alpine.git" \
       org.label-schema.vcs-ref=${VCS_REF} \
       org.label-schema.docker.dockerfile="/Dockerfile" \
