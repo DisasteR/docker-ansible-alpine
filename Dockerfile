@@ -2,8 +2,8 @@ FROM alpine:3.18
 
 # Metadata params
 ARG BUILD_DATE
-ARG ANSIBLE_VERSION
-ARG ANSIBLE_LINT_VERSION
+ARG ANSIBLE_VERSION=8.5.0
+ARG ANSIBLE_LINT_VERSION=6.20.3
 ARG VCS_REF
 
 # Metadata
@@ -24,32 +24,37 @@ RUN apk --update --no-cache add \
         git \
         openssh-client \
         openssl \
-        python3\
-        py3-pip \
         py3-cryptography \
+        py3-pip \
+        py3-yaml \
+        python3\
         rsync \
         sshpass
 
 RUN apk --update add --virtual \
         .build-deps \
-        python3-dev \
+        build-base \
+        cargo \
+        curl \
         libffi-dev \
         openssl-dev \
-        build-base \
-        curl \
- && pip3 install --upgrade \
+        python3-dev \
+  && pip3 install --no-cache-dir --upgrade \
         pip \
+  && pip3 install --no-cache-dir --no-binary \
         cffi \
- && pip3 install \
+        pyyaml \
         ansible==${ANSIBLE_VERSION} \
         ansible-lint==${ANSIBLE_LINT_VERSION} \
- && apk del \
-        .build-deps \
- && rm -rf /var/cache/apk/*
+  && apk del \
+          .build-deps \
+  && rm -rf /var/cache/apk/* \
+  && find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
+  && find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
 
 RUN mkdir -p /etc/ansible \
- && echo 'localhost' > /etc/ansible/hosts \
- && echo -e """\
+  && echo 'localhost' > /etc/ansible/hosts \
+  && echo -e """\
 \n\
 Host *\n\
     StrictHostKeyChecking no\n\
