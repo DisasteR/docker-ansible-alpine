@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ansible:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ansible
+    volumes:
+    - .:/ansible
