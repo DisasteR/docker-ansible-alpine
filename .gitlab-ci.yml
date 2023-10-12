@@ -1,0 +1,102 @@
+image: docker:git
+
+services:
+- docker:dind
+
+stages:
+- build_image
+
+before_script:
+  - mkdir -p ${HOME}/.docker
+  - echo ${DOCKER_AUTH_CONFIG} > ${HOME}/.docker/config.json
+  - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+
+build_image.default:
+  stage: build_image
+  script:
+  - docker buildx create --driver docker-container --use
+  - docker buildx build
+    --provenance=false
+    --pull
+    --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+    --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+    --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
+    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
+    --platform=linux/arm64,linux/amd64
+    --push
+    -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+    -t "${DU_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+    .
+  only:
+  - master
+  except:
+  - tags
+
+build_image.feature:
+  stage: build_image
+  script:
+  - docker buildx create --driver docker-container --use
+  - docker buildx build
+    --provenance=false
+    --pull
+    --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+    --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+    --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
+    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
+    --platform=linux/arm64,linux/amd64
+    --push
+    -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME%%-*}"
+    -t "${DU_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME%%-*}"
+    .
+  only:
+  - "/^[0-9]+-.*$/"
+  except:
+  - tags
+
+build_image.nonstd:
+  stage: build_image
+  script:
+  - docker buildx create --driver docker-container --use
+  - docker buildx build
+    --provenance=false
+    --pull
+    --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+    --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+    --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
+    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
+    --platform=linux/arm64,linux/amd64
+    --push
+    -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME:0:128}"
+    -t "${DU_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME:0:128}"
+    .
+  only:
+  - "/^[a-zA-Z]+.*$/"
+  except:
+  - master
+  - dev
+  - tags
+
+build_image.tag:
+  stage: build_image
+  script:
+  - docker buildx create --driver docker-container --use
+  - docker buildx build
+    --provenance=false
+    --pull
+    --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
+    --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
+    --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
+    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
+    --platform=linux/arm64,linux/amd64
+    --push
+    -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+    -t "${DU_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+    -t "${CI_REGISTRY_IMAGE}:latest"
+    -t "${DU_REGISTRY_IMAGE}:latest"
+    .
+  only:
+  - tags

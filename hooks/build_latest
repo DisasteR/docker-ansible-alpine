@@ -1,10 +1,15 @@
 #!/bin/sh
-# $IMAGE_NAME var is injected into the build so the tag is correct.
 
-docker build --build-arg VCS_REF=`git rev-parse --short HEAD` \
-             --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` \
-             --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION:=6.0.0} \
-             --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION:=6.2.2} \
-             --build-arg MITOGEN_VERSION=${MITOGEN_VERSION:=0.3.0-rc.0} \
-             -t ${IMAGE_NAME:=pad92/ansible-alpine:6.0.0} .
-docker tag pad92/ansible-alpine:6.0.0 pad92/ansible-alpine:latest
+DOCKER_BUILDX=$(docker buildx create --driver docker-container --use)
+docker buildx build \
+  --pull \
+  --provenance=false \
+  --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION:=8.5.0} \
+  --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION:=6.20.3} \
+  --build-arg BUILD_NAME="${CI_PROJECT_NAME}" \
+  --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')" \
+  --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}" \
+  --platform=linux/arm64,linux/amd64 \
+  -t ${IMAGE_NAME:=ansible-alpine:8.5.0} \
+  .
+docker buildx rm "${DOCKER_BUILDX}"
