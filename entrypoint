@@ -44,7 +44,6 @@ if [ -f "$PIP_REQUIREMENTS" ]; then
     pip3 install --upgrade -r $PIP_REQUIREMENTS
 fi
 
-
 # install Galaxy roles, if any
 if [ -z "$ANSIBLE_REQUIREMENTS" ]; then
     ANSIBLE_REQUIREMENTS=requirements.yml

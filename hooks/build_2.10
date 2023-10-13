@@ -3,7 +3,7 @@
 ANSIBLE_VERSION=${ANSIBLE_VERSION:=2.10.7}
 ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION:=6.2.2}
 
-docker buildx create --name ansible_${ANSIBLE_VERSION} --driver docker-container --use
+DOCKER_BUILDX=$(docker buildx create --name ansible_${ANSIBLE_VERSION} --driver docker-container --use)
 docker buildx build \
   --pull \
   --push \
