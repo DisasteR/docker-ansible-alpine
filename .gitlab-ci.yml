@@ -21,7 +21,7 @@ build_image.default:
     --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
     --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
     --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
-    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_VERSION="${ANSIBLE_VERSION}"
     --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
     --platform=linux/amd64
     -t "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
@@ -41,7 +41,7 @@ build_image.feature:
     --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
     --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
     --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
-    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_VERSION="${ANSIBLE_VERSION}"
     --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
     --platform=linux/amd64
     -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME%%-*}"
@@ -61,7 +61,7 @@ build_image.nonstd:
     --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
     --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
     --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
-    --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION}
+    --build-arg ANSIBLE_VERSION="${ANSIBLE_VERSION}"
     --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
     --platform=linux/amd64
     -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME:0:128}"
@@ -83,8 +83,8 @@ build_image.tag:
     --build-arg BUILD_NAME="${CI_PROJECT_NAME}"
     --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')"
     --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}"
-    --build-arg ANSIBLE_VERSION=${CI_COMMIT_REF_NAME}
-    --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
+    --build-arg ANSIBLE_VERSION="${CI_COMMIT_REF_NAME}"
+    --build-arg ANSIBLE_LINT_VERSION="${ANSIBLE_LINT_VERSION}"
     --platform=linux/arm64,linux/amd64,linux/arm/v7
     --push
     -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
