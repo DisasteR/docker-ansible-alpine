@@ -1,6 +1,5 @@
 #!/bin/sh
 
-DOCKER_BUILDX=$(docker buildx create --name ansible_${ANSIBLE_VERSION} --driver docker-container --use)
 docker buildx build \
   --pull \
   --provenance=false \
@@ -12,4 +11,3 @@ docker buildx build \
   --platform=linux/arm64,linux/amd64,linux/arm/v7 \
   -t "${IMAGE_NAME:=pad92/ansible-alpine}:${ANSIBLE_VERSION}" \
   .
-docker buildx rm "${DOCKER_BUILDX}"
