@@ -3,7 +3,7 @@
 ANSIBLE_VERSION='2.10.7'
 ANSIBLE_LINT_VERSION='5.1.3'
 
-DOCKER_BUILDX=$(docker buildx create --append --name ansible_${ANSIBLE_VERSION} --driver docker-container --use)
+DOCKER_BUILDX=$(docker buildx create --name ansible_${ANSIBLE_VERSION} --driver docker-container --use)
 docker buildx build \
   --pull \
   --push \
@@ -12,6 +12,6 @@ docker buildx build \
   --build-arg ANSIBLE_LINT_VERSION \
   --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')" \
   --platform=linux/arm64,linux/amd64,linux/arm/v7 \
-  -t ${IMAGE_NAME:=pad92/ansible-alpine:2.10.7-2} \
-  -t registry.gitlab.com/pad92/docker-ansible-alpine:2.10.7-2 \
+  -t "IMAGE_NAME=pad92/ansible-alpine:${ANSIBLE_VERSION}-2" \
+  -t "registry.gitlab.com/pad92/docker-ansible-alpine:${ANSIBLE_VERSION}-2" \
   .

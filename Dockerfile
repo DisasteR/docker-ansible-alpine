@@ -31,7 +31,7 @@ RUN apk --update --no-cache add \
         rsync \
         sshpass
 
-RUN apk --update add --virtual \
+RUN apk --update --no-cache add --virtual \
         .build-deps \
         build-base \
         cargo \
@@ -50,7 +50,8 @@ RUN apk --update add --virtual \
           .build-deps \
   && rm -rf /var/cache/apk/* \
   && find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
-  && find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
+  && find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf \
+  && pip3 freeze > /pip3_freeze.txt
 
 RUN mkdir -p /etc/ansible \
   && echo 'localhost' > /etc/ansible/hosts \

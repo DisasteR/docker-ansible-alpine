@@ -26,6 +26,10 @@ build_image.default:
     --platform=linux/amd64
     -t "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}"
     .
+  - docker run -i --entrypoint '' "${CI_REGISTRY_IMAGE}:${ANSIBLE_VERSION}" cat /pip3_freeze.txt > pip3.txt
+  artifacts:
+    paths:
+      - pip3.txt
   only:
   - master
   except:
@@ -46,6 +50,10 @@ build_image.feature:
     --platform=linux/amd64
     -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME%%-*}"
     .
+  - docker run -i --entrypoint '' "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME%%-*}" cat /pip3_freeze.txt > pip3.txt
+  artifacts:
+    paths:
+      - pip3.txt
   only:
   - "/^[0-9]+-.*$/"
   except:
@@ -66,6 +74,10 @@ build_image.nonstd:
     --platform=linux/amd64
     -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME:0:128}"
     .
+  - docker run -i --entrypoint '' "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME:0:128}" cat /pip3_freeze.txt > pip3.txt
+  artifacts:
+    paths:
+      - pip3.txt
   only:
   - "/^[a-zA-Z]+.*$/"
   except:
@@ -92,5 +104,9 @@ build_image.tag:
     -t "${CI_REGISTRY_IMAGE}:latest"
     -t "${DU_REGISTRY_IMAGE}:latest"
     .
+  - docker run -i --entrypoint '' "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}" cat /pip3_freeze.txt > pip3.txt
+  artifacts:
+    paths:
+      - pip3.txt
   only:
   - tags
