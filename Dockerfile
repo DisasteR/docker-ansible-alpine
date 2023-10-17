@@ -43,7 +43,6 @@ RUN apk --update --no-cache add --virtual \
         pip \
   && pip3 install --no-cache-dir --no-binary \
         cffi \
-        pyyaml \
         ansible==${ANSIBLE_VERSION} \
         ansible-lint==${ANSIBLE_LINT_VERSION} \
   && apk del \
