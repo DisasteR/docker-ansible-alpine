@@ -3,8 +3,8 @@
 docker buildx build \
   --pull \
   --provenance=false \
-  --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION:=8.5.0} \
-  --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION:=6.20.3} \
+  --build-arg ANSIBLE_VERSION=${ANSIBLE_VERSION:=9.0.1} \
+  --build-arg ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION:=6.22.0} \
   --build-arg BUILD_NAME="${CI_PROJECT_NAME}" \
   --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')" \
   --build-arg BUILD_VCSREF="${CI_COMMIT_SHA:0:8}" \

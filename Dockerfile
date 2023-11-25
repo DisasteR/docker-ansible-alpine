@@ -2,8 +2,9 @@ FROM alpine:3.18
 
 # Metadata params
 ARG BUILD_DATE
-ARG ANSIBLE_VERSION=8.5.0
-ARG ANSIBLE_LINT_VERSION=6.20.3
+ARG ANSIBLE_VERSION=9.0.1
+ARG ANSIBLE_LINT_VERSION=6.22.0
+ARG MITOGEN_VERSION=0.3.4
 ARG VCS_REF
 
 # Metadata
@@ -41,10 +42,11 @@ RUN apk --update --no-cache add --virtual \
         python3-dev \
   && pip3 install --no-cache-dir --upgrade \
         pip \
-  && pip3 install --no-cache-dir --no-binary \
+  && pip3 install --no-cache-dir --upgrade --no-binary \
         cffi \
         ansible==${ANSIBLE_VERSION} \
         ansible-lint==${ANSIBLE_LINT_VERSION} \
+        mitogen==${MITOGEN_VERSION} \
   && apk del \
           .build-deps \
   && rm -rf /var/cache/apk/* \

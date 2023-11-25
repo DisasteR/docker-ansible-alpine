@@ -12,5 +12,5 @@ docker buildx build \
   --build-arg BUILD_DATE="$(date '+%FT%T.%s%z')" \
   --platform=linux/arm64,linux/amd64,linux/arm/v7 \
   -t "pad92/ansible-alpine:${ANSIBLE_VERSION}-2" \
-  -t "registry.gitlab.com/pad92/docker-ansible-alpine:${ANSIBLE_VERSION}-2" \
+  -t "registry.gitlab.com/pad92/docker-ansible-alpine:${ANSIBLE_VERSION}-3" \
   .

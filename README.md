@@ -17,10 +17,10 @@
 
 To enable mitogen, add this configuration into defaults in defaults.cfg file
 ```
-action_plugins = ~/.ansible/plugins/action:/usr/share/ansible/plugins/action
-strategy_plugins = /opt/mitogen/ansible_mitogen/plugins/strategy
+strategy_plugins = /usr/lib/python3.8/site-packages/ansible_mitogen/plugins/strategy
 strategy = mitogen_linear
 ```
+Full documentation : https://mitogen.networkgenomics.com/ansible_detailed.html
 
 ### Run Playbook
 
