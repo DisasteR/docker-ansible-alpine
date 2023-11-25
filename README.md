@@ -1,8 +1,10 @@
 # Docker-Ansible base image
 
 ![Pipeline](https://gitlab.com/pad92/docker-ansible-alpine/badges/master/pipeline.svg)
+![version](https://img.shields.io/docker/v/pad92/ansible-alpine?sort=semver)
 [![Docker Pulls](https://img.shields.io/docker/pulls/pad92/ansible-alpine)](https://hub.docker.com/r/pad92/ansible-alpine/)
-![Docker Image Size (tag)](https://img.shields.io/docker/image-size/pad92/ansible-alpine/latest)
+![Docker Image Size](https://img.shields.io/docker/image-size/pad92/ansible-alpine/latest)
+![Docker Stars](https://img.shields.io/docker/stars/pad92/ansible-alpine)
 ## Usage
 
 ### Environnement variable
