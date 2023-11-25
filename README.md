@@ -17,16 +17,19 @@
 
 ### Mitogen
 
-To enable mitogen, add this configuration into defaults in defaults.cfg file
-```
+To enable mitogen, add this configuration into defaults in ansible.cfg file
+
+```cfg
+[defaults]
 strategy_plugins = /usr/lib/python3.8/site-packages/ansible_mitogen/plugins/strategy
 strategy = mitogen_linear
 ```
+
 Full documentation : https://mitogen.networkgenomics.com/ansible_detailed.html
 
 ### Run Playbook
 
-```
+```sh
 docker run -it --rm \
   -v ${PWD}:/ansible \
   pad92/ansible-alpine:latest \
@@ -35,7 +38,7 @@ docker run -it --rm \
 
 ### Generate Base Role structure
 
-```
+```sh
 docker run -it --rm \
   -v ${PWD}:/ansible \
   pad92/ansible-alpine:latest \
@@ -44,13 +47,13 @@ docker run -it --rm \
 
 ### Lint Role
 
-```
+```sh
 docker run -it --rm pad92/ansible-alpine:latest \
   -v ${PWD}:/ansible ansible-playbook tests/playbook.yml --syntax-check
 ```
 ### Run with forwarding ssh agent
 
-```
+```sh
 docker run -it --rm \
   -v $(readlink -f $SSH_AUTH_SOCK):/ssh-agent \
   -v ${PWD}:/ansible \
