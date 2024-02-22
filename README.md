@@ -14,6 +14,7 @@
 | PIP_REQUIREMENTS     | requirements.txt | install python library requirements         |
 | ANSIBLE_REQUIREMENTS | requirements.yml | install ansible galaxy roles requirements   |
 | DEPLOY_KEY           |                  | pass an SSH private key to use in container |
+| ALPINE_REQUIREMENTS  | requirements.pkg | install Alpine package                      |
 
 ### Mitogen
 

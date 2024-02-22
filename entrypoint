@@ -35,6 +35,15 @@ if [ -f "/root/.ssh/id_rsa" ]; then
     ssh-add /root/.ssh/id_rsa
 fi
 
+# install alpine requirements, if any
+if [ -z "$ALPINE_REQUIREMENTS" ]; then
+    ALPINE_REQUIREMENTS=requirements.pkg
+fi
+
+if [ -f "$ALPINE_REQUIREMENTS" ]; then
+    apk add --no-cache $(cat ${ALPINE_REQUIREMENTS})
+fi
+
 # install pip requirements, if any
 if [ -z "$PIP_REQUIREMENTS" ]; then
     PIP_REQUIREMENTS=requirements.txt
